@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "test";
+option java_outer_classname = "ProfileServiceProto";
+
+service ProfileService {
+    rpc CreateProfile (CreateProfileRequest) returns (CreateProfileResponse);
+    rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
+    rpc AddMoney (AddMoneyRequest) returns (AddMoneyResponse);
+    rpc ChargeMoney (ChargeMoneyRequest) returns (ChargeMoneyResponse);
+}
+
+message CreateProfileRequest {
+}
+
+message CreateProfileResponse {
+    string secret_key = 1;
+    int64 profile_id = 2;
+    int64 money = 3;
+}
+
+message GetProfileRequest {
+    string secret_key = 1;
+}
+
+message GetProfileResponse {
+    int64 profile_id = 1;
+    int64 money = 2;
+}
+
+message AddMoneyRequest {
+    string secret_key = 1;
+    int64 amount_to_add = 2;
+}
+
+message AddMoneyResponse {
+    int64 current_amount = 2;
+}
+
+message ChargeMoneyRequest {
+    string secret_key = 1;
+    int64 amount_to_charge = 2;
+}
+
+message ChargeMoneyResponse {
+    oneof result {
+        string error = 1;
+        int64 current_amount = 2;
+    }
+}
